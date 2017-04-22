@@ -6,7 +6,7 @@ def VERSION_CODE = 2
 def VERSION_NAME = '2.0.0.0'
 // 打包最新发布版本后修改这里为最新版本，此时可将${bakPath} 目录下之前版本相关文件删除
 // 从 ${bakPath} 目录下选择基文件的文件名，基文件为当前最新版本
-def oldApkName = 'app-1222-16-43-24'
+def oldApkName = 'app-1222-20-03-14'
 // 获得基准APK所在的路径，这里使用默认的即可
 def bakPath = file("${buildDir}/bakApk/")
 // 定义JDK版本

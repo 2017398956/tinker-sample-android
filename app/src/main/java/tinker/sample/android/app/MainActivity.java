@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         alert = (Button) findViewById(R.id.alert) ;
-//        alert.setText("bug已修复");
+        alert.setText("bug已修复");
 //        alert.setText("bug未修复");
     }
 
