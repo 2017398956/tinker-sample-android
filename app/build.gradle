@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 // 定义版本号和版本名称（方便 tinkerId 的更改，使用 git 版本号相对麻烦），升级时只需修改这里即可
 def VERSION_CODE = 2
 def VERSION_NAME = '2.0.0.0'
+
 // 打包最新发布版本后修改这里为最新版本，此时可将${bakPath} 目录下之前版本相关文件删除
 // 从 ${bakPath} 目录下选择基文件的文件名，基文件为当前最新版本
 def oldApkName = 'app-1222-20-03-14'
@@ -13,12 +14,12 @@ def bakPath = file("${buildDir}/bakApk/")
 def javaVersion = JavaVersion.VERSION_1_7
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:23.1.1'
+    implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
     // use to test multiDex
     // compile group: 'com.google.guava', name: 'guava', version: '19.0'
     // compile "org.scala-lang:scala-library:2.11.7"
@@ -30,8 +31,8 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     compileOptions {
         sourceCompatibility javaVersion
         targetCompatibility javaVersion
@@ -60,8 +61,8 @@ android {
     }
     defaultConfig {
         applicationId "tinker.sample.android"
-        minSdkVersion 10
-        targetSdkVersion 22
+        minSdkVersion 14
+        targetSdkVersion 28
         versionCode VERSION_CODE
         versionName VERSION_NAME
         /**
@@ -119,23 +120,23 @@ android {
         }
     }
     productFlavors {
-        flavor01 {
-            minSdkVersion 10
-            applicationId 'tinker.sample.android'
-            targetSdkVersion 22
-            signingConfig signingConfigs.release
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "flavor01"]
-            // buildConfigField("String", "flavor", "\"flavor01\"")
-        }
-        flavor02 {
-            minSdkVersion 10
-            applicationId 'tinker.sample.android'
-            signingConfig signingConfigs.release
-            targetSdkVersion 22
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "flavor02"]
-            // buildConfigField("String", "flavor", "\"flavor02\"")
-        }
-    }
+         flavor01 {
+             minSdkVersion 10
+             applicationId 'tinker.sample.android'
+             targetSdkVersion 22
+             signingConfig signingConfigs.release
+             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "flavor01"]
+             // buildConfigField("String", "flavor", "\"flavor01\"")
+         }
+         flavor02 {
+             minSdkVersion 10
+             applicationId 'tinker.sample.android'
+             signingConfig signingConfigs.release
+             targetSdkVersion 22
+             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "flavor02"]
+             // buildConfigField("String", "flavor", "\"flavor02\"")
+         }
+     }
 }
 
 /**
@@ -178,6 +179,7 @@ def getApplyResourceMappingPath() {
 // 注意：此方法已不再使用
 def getTinkerIdValue() {
     // 使用git的版本号作为TinkerId
+
     String gitRev = 'testTinkerId'
     try {
         // 经测试发现如果没有使用 git 这里的 try catch 不会触发，原因待测
